@@ -68,3 +68,7 @@ DELETE FROM customers WHERE customer_id>1 -- based on the condition we delete mu
 -- CREATE TABLE
 CREATE TABLE users (name VARCHAR(255), age INTEGER NOT NULL)
 CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), age INTEGER NOT NULL) -- creates a table if it does not already exist
+
+-- DELETE TABLE
+DROP TABLE users
+DROP TABLE IF EXISTS table_name -- deletes a table if it exists
