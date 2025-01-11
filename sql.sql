@@ -47,3 +47,5 @@ SELECT * FROM products LEFT JOIN categories ON products.category_id = categories
 SELECT * FROM products RIGHT JOIN categories ON products.category_id = categories.category_id -- RIGHT JOIN returns all rows from the right table and the matched rows from the left table
 SELECT * FROM products LEFT JOIN categories USING (category_id) -- when the columns have the same name we can use USING instead of ON
 -----------------
+-- UNION
+SELECT * FROM products WHERE category_id = 1 UNION SELECT * FROM products WHERE category_id = 2 -- UNION is used to combine the result of two or more SELECT statements
