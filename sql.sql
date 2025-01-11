@@ -53,3 +53,4 @@ SELECT * FROM products WHERE category_id = 1 UNION SELECT * FROM products WHERE 
 -- INSERT
 INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300) -- Inserting single row
 INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300), ('phone', 'electronic', 800), ('charger', 'electronic', 25) -- Inserting multi rows
+LAST_INSERT_ID() -- LAST_INSERT_ID() returns the last automatically generated value from an AUTO_INCREMENT column.
