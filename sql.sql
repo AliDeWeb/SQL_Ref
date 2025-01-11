@@ -72,3 +72,14 @@ CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), age INTEGER NOT NULL) -- cr
 -- DELETE TABLE
 DROP TABLE users
 DROP TABLE IF EXISTS table_name -- deletes a table if it exists
+
+-- Aggregations => MIN() | MAX() | AVG() | COUNT() | SUM()
+SELECT SUM(price) AS total FROM products
+SELECT COUNT(*) AS total FROM products WHERE create_at > '2025-11-26' -- aggregations will skip the null values, so to calculate count we must use * to consider all rows.
+
+-- GROUP BY
+SELECT client_id, SUM(payment_total) AS total_payment FROM invoices GROUP BY client_id WHERE create_at > '2025-11-26'
+SELECT client_id, SUM(payment_total) FROM invoices GROUP BY client_id, payment_total -- Selects the client_id and the sum of payment_total from invoices, grouping by both client_id and payment_total, it means it will do it for any form of mixing these two items
+
+-- HAVING
+SELECT SUM(payment_total) FROM invoices GROUP BY client_id HAVING payment_total > 500 -- using HAVING we can check conditions after grouping data
