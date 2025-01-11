@@ -53,4 +53,8 @@ SELECT * FROM products WHERE category_id = 1 UNION SELECT * FROM products WHERE 
 -- INSERT
 INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300) -- Inserting single row
 INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300), ('phone', 'electronic', 800), ('charger', 'electronic', 25) -- Inserting multi rows
-LAST_INSERT_ID() -- LAST_INSERT_ID() returns the last automatically generated value from an AUTO_INCREMENT column.
+LAST_INSERT_ID() -- LAST_INSERT_ID() returns the last automatically generated value from an AUTO_INCREMENT column
+
+-- CREATE TABLE
+CREATE TABLE users (name VARCHAR(255), age INTEGER NOT NULL)
+CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), age INTEGER NOT NULL) -- creates a table if it does not already exist
