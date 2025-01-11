@@ -55,11 +55,16 @@ INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300
 INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300), ('phone', 'electronic', 800), ('charger', 'electronic', 25) -- Inserting multi rows
 LAST_INSERT_ID() -- LAST_INSERT_ID() returns the last automatically generated value from an AUTO_INCREMENT column
 
+-- UPDATE
+UPDATE customers SET first_name='John' -- all rows will be updated
+UPDATE customers SET first_name='John' WHERE customer_id=1 -- based on the condition we just update single row
+UPDATE customers SET first_name='John' WHERE customer_id>10 -- based on the condition we update multi rows
+
+-- DELETE
+DELETE FROM customers -- all rows will be deleted
+DELETE FROM customers WHERE customer_id=1 -- based on the condition we just delete single row
+DELETE FROM customers WHERE customer_id>1 -- based on the condition we delete multi rows
+
 -- CREATE TABLE
 CREATE TABLE users (name VARCHAR(255), age INTEGER NOT NULL)
 CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), age INTEGER NOT NULL) -- creates a table if it does not already exist
-
--- UPDATE TABLE
-UPDATE customers SET first_name='John' -- all rows will be updated
-UPDATE customers SET first_name='John' WHERE customer_id=1 -- based on the condition we just can single row
-UPDATE customers SET first_name='John' WHERE customer_id>10 -- based on the condition we just can multi rows
