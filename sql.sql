@@ -46,6 +46,10 @@ SELECT * FROM products p1 JOIN products p2 ON p1.category_id = p2.category_id AN
 SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id -- LEFT JOIN returns all rows from the left table and the matched rows from the right table
 SELECT * FROM products RIGHT JOIN categories ON products.category_id = categories.category_id -- RIGHT JOIN returns all rows from the right table and the matched rows from the left table
 SELECT * FROM products LEFT JOIN categories USING (category_id) -- when the columns have the same name we can use USING instead of ON
------------------
+
 -- UNION
 SELECT * FROM products WHERE category_id = 1 UNION SELECT * FROM products WHERE category_id = 2 -- UNION is used to combine the result of two or more SELECT statements
+
+-- INSERT
+INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300) -- Inserting single row
+INSERT INTO products(name, category, price) VALUES ('laptop', 'electronic', 1300), ('phone', 'electronic', 800), ('charger', 'electronic', 25) -- Inserting multi rows
