@@ -2,8 +2,7 @@ USE database_name;
 
 -- SELECT
 SELECT name, (price * 2) AS double_price FROM products -- in select statement we can use expressions and aliases
-SELECT DISTINCT city
-FROM customers -- returns only unique values from the specified columns
+SELECT DISTINCT city FROM customers -- returns only unique values from the specified columns
 
 -- AND OR NOT
 SELECT * FROM products WHERE (unit_price > 1 OR quantity_in_stock > 20) AND NOT product_id=7
