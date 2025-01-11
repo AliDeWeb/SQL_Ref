@@ -58,3 +58,8 @@ LAST_INSERT_ID() -- LAST_INSERT_ID() returns the last automatically generated va
 -- CREATE TABLE
 CREATE TABLE users (name VARCHAR(255), age INTEGER NOT NULL)
 CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), age INTEGER NOT NULL) -- creates a table if it does not already exist
+
+-- UPDATE TABLE
+UPDATE customers SET first_name='John' -- all rows will be updated
+UPDATE customers SET first_name='John' WHERE customer_id=1 -- based on the condition we just can single row
+UPDATE customers SET first_name='John' WHERE customer_id>10 -- based on the condition we just can multi rows
