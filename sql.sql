@@ -238,3 +238,20 @@ BEGIN
     SET var1 = 12
 END $$
 DELIMITER ;
+
+-- FUNCTIONS
+DELIMITER //
+CREATE FUNCTION get_something (something INT) 
+RETURNS INTEGER 
+DETERMINISTIC -- Characteristics
+BEGIN 
+    RETURN something;
+END //
+DELIMITER ;
+-- Characteristics
+-- DETERMINISTIC: Always returns same output for same input
+-- NOT DETERMINISTIC: May return different outputs for same input
+-- NO SQL: No access to data
+-- READS SQL DATA: Can only read data (SELECT)
+-- MODIFIES SQL DATA: Can modify data (INSERT, UPDATE, DELETE)
+-- CONTAINS SQL: Can execute SQL commands without data access
