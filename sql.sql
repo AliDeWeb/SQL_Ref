@@ -145,3 +145,82 @@ CREATE OR REPLACE VIEW cv
 CREATE VIEW cv AS SELECT * FROM customers WHERE customer_id > 8
 CREATE VIEW cv AS SELECT * FROM customers WHERE customer_id > 8 WITH CHECK OPTION -- WITH CHECK OPTION ensures that all INSERT and UPDATE operations on the view adhere to the view's WHERE clause conditions.
 DROP VIEW IF EXISTS cv
+
+-- PROCEDURE
+-- Better Code Management: SQL commands are stored as a single unit, making them easier to manage.
+-- Improved Performance: Procedures are compiled once and stored, enhancing execution speed.
+-- Enhanced Security: Access levels for execution or viewing can be controlled.
+-- Reduced Network Traffic: Data processing occurs on the database server, minimizing client-server requests.
+-- Parameterization: Supports input and output parameters for dynamic and reusable processes.
+-- CREATE
+DELIMITER $$ -- DELIMITER is used to define a custom statement terminator in SQL to avoid confusion with default semicolons inside procedures.
+CREATE PROCEDURE get_clients()
+BEGIN
+	SELECT * FROM customers;
+END $$
+DELIMITER ;
+-----------------
+-- USE
+CALL get_clients()
+-----------------
+-- DELETE
+DROP PROCEDURE IF EXISTS get_clients
+-----------------
+-- GET PARAMETERS
+DELIMITER $$
+CREATE PROCEDURE get_clients(state CHAR(2))
+BEGIN
+	SELECT * FROM customers c
+    WHERE c.state = state;
+END $$
+DELIMITER ;
+-- USAGE
+CALL get_clients('VA')
+-----------------
+-- SET DEFAULT VALUES FOR PARAMS
+DELIMITER $$
+CREATE PROCEDURE get_clients(state CHAR(2))
+BEGIN
+	IF state IS NULL THEN 
+		SET state = 'CA';
+	END IF;
+	SELECT * FROM customers c
+    WHERE c.state = state;
+END $$
+DELIMITER ;
+-- or
+DELIMITER $$
+CREATE PROCEDURE get_clients(state CHAR(2))
+BEGIN
+	SELECT * FROM customers c
+    WHERE c.state = IFNULL(state, 'VA');
+END $$
+DELIMITER ;
+-----------------
+-- PARAMS VALIdATION
+DROP PROCEDURE IF EXISTS get_clients;
+DELIMITER $$
+CREATE PROCEDURE get_clients(state CHAR(2), points INTEGER)
+BEGIN
+	IF points < 0 THEN SIGNAL SQLSTATE '22003' SET MESSAGE_TEXT = 'INVALID POINT'; END IF;
+	SELECT * FROM customers c
+    WHERE c.state = IFNULL(state, 'VA');
+END $$
+DELIMITER ;
+-----------------
+-- OUTPUT PARAMS
+DROP PROCEDURE IF EXISTS get_clients;
+DELIMITER $$
+CREATE PROCEDURE get_clients(state CHAR(2), OUT count INTEGER, OUT points INTEGER)
+BEGIN
+	SELECT COUNT(*), SUM(points)
+    INTO count, points
+    FROM customers c
+    WHERE c.state = IFNULL(state, 'VA');
+END $$
+DELIMITER ;
+-- USAGE
+SET @count = 0;
+SET @points = 0;
+CALL get_clients('va', @count, @points);
+SELECT @count, @points;
