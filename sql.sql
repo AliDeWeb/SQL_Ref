@@ -224,3 +224,17 @@ SET @count = 0;
 SET @points = 0;
 CALL get_clients('va', @count, @points);
 SELECT @count, @points;
+
+-- VARIABLES
+-- Session vars
+SET @count = 0; -- the variable exists as long as the connection is open
+-----------------
+-- Local vars
+DELIMITER $$
+CREATE PROCEDURE get_clients()
+BEGIN
+    DECLARE var1 INT DEFAULT 5;  -- the variable exists as long as the PROCEDURE done its task
+
+    SET var1 = 12
+END $$
+DELIMITER ;
