@@ -91,3 +91,41 @@ SELECT * FROM invoices WHERE invoice_total = ALL (SELECT invoice_total FROM invo
 SELECT * FROM invoices WHERE invoice_total = ANY (SELECT invoice_total FROM invoices) -- ANY keyword is used to compare a value to any values in another result set (OR)
 SELECT name FROM students WHERE EXISTS (SELECT 1 FROM enrollments WHERE students.id = enrollments.student_id) -- EXISTS checks if a subquery returns any rows; it returns TRUE if rows exist, otherwise FALSE.
 SELECT invoice_id, invoice_total, payment_total, (SELECT AVG(invoice_total) FROM invoices) AS average, invoice_total - (SELECT average) AS difference FROM invoices;
+
+-- BUILT-IN SQL FUNCTIONS
+-- NUMBERS
+SELECT ROUND(5.6) -- => 6
+SELECT ROUND(5.678, 2) -- => 5.68
+SELECT TRUNCATE(5.689898,3) -- => 5.689
+SELECT CEIL(5.9) -- => 6
+SELECT FLOOR(5.9) -- => 5
+SELECT ABS(-5) -- => 5
+SELECT RAND() -- => random number between 0 and 1
+-----------------
+-- STRINGS *INDEX starts at 1 not 0!
+SELECT LENGTH('john') -- => 4
+SELECT UPPER('john') -- => JOHN
+SELECT LOWER('JOHN') -- => john
+SELECT LOWER(TRIM('JOHN    ')) -- => john
+SELECT RTRIM('JOHN    ') -- => JOHN
+SELECT LTRIM('    JOHN') -- => JOHN
+SELECT LEFT('john',2) -- => jo
+SELECT RIGHT('john',2) -- => hn
+SELECT SUBSTRING('john is coming home', 8) -- =>  coming home, from index 8 to the end
+SELECT SUBSTRING('john is coming home', 8, 7) -- =>  coming, from index 8 to 7 index after
+SELECT LOCATE("o", "john is coming home") -- => 2
+SELECT LOCATE("is", "john is coming home") -- => 6
+SELECT REPLACE("john is coming home", "is", "is not") -- => john is not coming home
+SELECT CONCAT('HELLO', ' WORLD') -- => HELLO WORLD
+-----------------
+-- DATE & TIME
+SELECT NOW() -- => 2025-01-12 11:59:56
+SELECT CURDATE() -- => 2025-01-12
+SELECT CURTIME() -- => 12:00:53
+SELECT YEAR(NOW()) -- YEAR | MONTH | DAY | HOUR | MINUTE | SECOND | DAYNAME | MONTHNAME
+SELECT EXTRACT(DAY FROM NOW()) -- it is the standard way to use dates
+SELECT DATE_FORMAT(NOW(), '%Y-%y-%M-%m-%D-%d-%H-%h-%p') -- => 2025-25-January-01-12th-12-12-12-PM
+SELECT DATE_ADD(NOW(), INTERVAL 1 YEAR) -- => 2026-01-12 12:18:46
+SELECT DATE_ADD(NOW(), INTERVAL -1 YEAR) -- => 2024-01-12 12:18:46
+SELECT DATEDIFF(NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR)) -- => -365 (day)
+SELECT TIME_TO_SEC('01:00') - TIME_TO_SEC('02:00') -- => -3600 (sec)
