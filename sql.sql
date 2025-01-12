@@ -138,3 +138,10 @@ SELECT *, IF(order_date > '2018-01-01', 'active', 'not active') AS status FROM o
 
 -- CASE WHEN THEN END
 SELECT *, CASE WHEN status=1 THEN 'active' WHEN status=2 THEN 'not active' ElSE 'unknown' END AS status FROM orders
+
+-- VIEWS => it is a virtual table, we treat views the same way we treat tables.
+CREATE VIEW cv
+CREATE OR REPLACE VIEW cv
+CREATE VIEW cv AS SELECT * FROM customers WHERE customer_id > 8
+CREATE VIEW cv AS SELECT * FROM customers WHERE customer_id > 8 WITH CHECK OPTION -- WITH CHECK OPTION ensures that all INSERT and UPDATE operations on the view adhere to the view's WHERE clause conditions.
+DROP VIEW IF EXISTS cv
