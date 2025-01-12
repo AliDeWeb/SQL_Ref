@@ -83,3 +83,10 @@ SELECT client_id, SUM(payment_total) FROM invoices GROUP BY client_id, payment_t
 
 -- HAVING
 SELECT SUM(payment_total) FROM invoices GROUP BY client_id HAVING payment_total > 500 -- using HAVING we can check conditions after grouping data
+
+-- SUB QUERIES
+SELECT * FROM products WHERE unit_price > (SELECT AVG(unit_price) FROM products)
+SELECT * FROM invoices WHERE invoice_total = ALL (SELECT invoice_total FROM invoices) -- ALL keyword is used to compare a value to all values in another result set (AND)
+SELECT * FROM invoices WHERE invoice_total = ANY (SELECT invoice_total FROM invoices) -- ANY keyword is used to compare a value to any values in another result set (OR)
+SELECT name FROM students WHERE EXISTS (SELECT 1 FROM enrollments WHERE students.id = enrollments.student_id) -- EXISTS checks if a subquery returns any rows; it returns TRUE if rows exist, otherwise FALSE.
+SELECT invoice_id, invoice_total, payment_total, (SELECT AVG(invoice_total) FROM invoices) AS average, invoice_total - (SELECT average) AS difference FROM invoices;
