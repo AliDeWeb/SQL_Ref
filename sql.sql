@@ -129,3 +129,12 @@ SELECT DATE_ADD(NOW(), INTERVAL 1 YEAR) -- => 2026-01-12 12:18:46
 SELECT DATE_ADD(NOW(), INTERVAL -1 YEAR) -- => 2024-01-12 12:18:46
 SELECT DATEDIFF(NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR)) -- => -365 (day)
 SELECT TIME_TO_SEC('01:00') - TIME_TO_SEC('02:00') -- => -3600 (sec)
+
+-- IFNULL
+SELECT shipper_id, IFNUll(shipper_id, 'not assigned') AS formatted FROM orders
+
+-- IF
+SELECT *, IF(order_date > '2018-01-01', 'active', 'not active') AS status FROM orders
+
+-- CASE WHEN THEN END
+SELECT *, CASE WHEN status=1 THEN 'active' WHEN status=2 THEN 'not active' ElSE 'unknown' END AS status FROM orders
