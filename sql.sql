@@ -327,3 +327,35 @@ WHERE user_id = 1
 UPDATE users
 SET properties = JSON_REMOVE(properties, "$.name")
 WHERE user_id = 1
+
+-- INDEXES
+EXPLAIN SELECT * FROM orders WHERE customer_id = 1 --The EXPLAIN keyword shows how a query is executed, including table access, indexes used, and performance details, to help optimize queries
+-- create
+CREATE INDEX idx_states ON customers(state)
+CREATE INDEX idx_states_name ON customers(state, name)
+-----------------
+-- indexes list
+SHOW INDEXES IN customers
+-----------------
+-- prefix indexes
+CREATE INDEX idx_name ON customers(name(20)) -- A prefix index indexes only the first N characters of a column, allowing for more efficient searches on large text fields by limiting the indexed portion of the data.
+-- This query helps determine the optimal prefix length for indexing by counting the number of distinct prefixes
+-- (first N characters) of the 'name' column. By gradually increasing the prefix length (e.g., 3, 4, 5 characters),
+-- you can identify the point where the number of distinct prefixes becomes sufficiently small, ensuring efficient indexing
+-- while minimizing storage usage and maximizing query performance.
+SELECT COUNT(DISTINCT LEFT(name, 5)) FROM customers;
+-----------------
+-- fulltext index
+-- This query creates a **FULLTEXT** index on the 'title' and 'body' columns of the 'posts' table.
+-- A FULLTEXT index allows for efficient text searching, such as finding words or phrases in large text fields.
+-- It's particularly useful for full-text search operations (e.g., using MATCH AGAINST) to improve performance when querying 
+-- large volumes of textual data, as it allows searching for words within the 'title' and 'body' columns.
+CREATE FULLTEXT INDEX idx_title_body ON posts(title, body);
+-- This query performs a **full-text search** on the 'title' and 'body' columns of the 'posts' table.
+-- It searches for posts that contain both the terms 'SQL' and 'NOSQL'. The **MATCH() AGAINST()** function is used 
+-- to find records where the words appear in the indexed columns ('title' and 'body').
+-- The **WHERE** clause ensures that only rows containing these terms are returned, providing an efficient way
+-- to search through large amounts of text data.
+SELECT *, MATCH(title, body) AGAINST('SQL NOSQL') -- to see the similarity
+FROM posts
+WHERE MATCH(title, body) AGAINST('SQL NOSQL');
