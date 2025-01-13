@@ -385,3 +385,32 @@ SHOW TRIGGERS LIKE '%name%'
 -----------------
 -- delete trigger
 DROP TRIGGER IF EXISTS payment_after_insert
+
+-- EVENTS
+DELIMITER $$
+CREATE EVENT weekly_delete_banned_users 
+ON SCHEDULE EVERY 1 WEAK
+DO BEGIN
+	-- SQL Queries
+END $$
+DELIMITER ;
+-- EVERY X: This allows you to schedule the event to run at regular intervals.
+-- You can specify the time period with units such as SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR.
+-- AT: This allows you to schedule the event to run at a specific date and time.
+-- You can specify the exact time for the event to start, for example:
+-- "AT '2025-01-15 00:00:00'": Executes the event at this specific date and time.
+-- The format should be 'YYYY-MM-DD HH:MM:SS'.
+-- Combining EVERY and AT:
+-- You can combine `EVERY` and `STARTS` to schedule an event to run at regular intervals starting from a specific date and time.
+-- Example: Executes the event every week starting from January 15, 2025, at midnight.
+-- "EVERY 1 WEEK STARTS '2025-01-15 00:00:00'": Executes the event weekly, starting at the given date and time.
+-----------------
+-- update event
+-- we can use ALTER keyword to update the event
+DELIMITER $$
+ALTER CREATE EVENT weekly_delete_banned_users 
+ON SCHEDULE EVERY 1 WEAK
+DO BEGIN
+	-- SQL Queries
+END $$
+DELIMITER ;
