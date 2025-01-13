@@ -359,3 +359,29 @@ CREATE FULLTEXT INDEX idx_title_body ON posts(title, body);
 SELECT *, MATCH(title, body) AGAINST('SQL NOSQL') -- to see the similarity
 FROM posts
 WHERE MATCH(title, body) AGAINST('SQL NOSQL');
+
+-- TRIGGERS
+DELIMITER $$
+CREATE TRIGGER payment_after_insert
+AFTER INSERT ON payment
+FOR EACH ROW
+BEGIN
+	-- SQL Queries
+END $$
+DELIMITER ;
+-- BEFORE INSERT: Trigger is fired before a new record is inserted into the table.
+-- AFTER INSERT: Trigger is fired after a new record is inserted into the table.
+-- BEFORE UPDATE: Trigger is fired before a record is updated in the table.
+-- AFTER UPDATE: Trigger is fired after a record is updated in the table.
+-- BEFORE DELETE: Trigger is fired before a record is deleted from the table.
+-- AFTER DELETE: Trigger is fired after a record is deleted from the table.
+
+-- NEW: Refers to the new values that are being inserted or updated. It is used in INSERT and UPDATE triggers.
+-- OLD: Refers to the values that existed before an update or delete operation. It is used in UPDATE and DELETE triggers.
+-----------------
+-- triggers list
+SHOW TRIGGERS
+SHOW TRIGGERS LIKE '%name%'
+-----------------
+-- delete trigger
+DROP TRIGGER IF EXISTS payment_after_insert
