@@ -414,3 +414,32 @@ DO BEGIN
 	-- SQL Queries
 END $$
 DELIMITER ;
+
+-- ALTER
+-- 1. Add a new column to a table
+ALTER TABLE table_name ADD column_name datatype; 
+-- This adds a new column to the table.
+
+-- 2. Drop a column from a table
+ALTER TABLE table_name DROP COLUMN column_name;
+-- This removes a column from the table.
+
+-- 3. Modify the data type of a column
+ALTER TABLE table_name MODIFY COLUMN column_name new_datatype;
+-- This changes the data type of an existing column.
+
+-- 4. Rename a column
+ALTER TABLE table_name CHANGE COLUMN old_column_name new_column_name datatype;
+-- This renames a column in the table.
+
+-- 5. Rename a table
+ALTER TABLE old_table_name RENAME TO new_table_name;
+-- This changes the name of a table.
+
+-- 6. Add a primary key to a table
+ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+-- This adds a primary key constraint to a column in the table.
+
+-- 7. Drop a foreign key from a table
+ALTER TABLE table_name DROP FOREIGN KEY fk_name;
+-- This removes a foreign key constraint from the table.
