@@ -294,3 +294,36 @@ TIMESTAMP         -- Stores both date and time in the format 'YYYY-MM-DD HH:MM:S
 -----------------
 -- JSON
 JSON              -- Stores JSON-formatted data as a text-based object; allows structured data storage with nested arrays and objects, enabling easy querying and validation.
+-- we can pass a json to a table row like
+UPDATE users
+SET properties = '{
+	"name": "john",
+    "age": 32,
+    "jobs": ["translator", "teacher"]
+}'
+WHERE user_id = 1
+-- or
+UPDATE users
+SET properties = JSON_OBJECT(
+	"name", "john"
+    "age", 32,
+    "jobs", JSON_ARRAY("translator", "teacher")
+)
+WHERE user_id = 1
+-- read a value of a json
+JSON_EXTRACT(properties, '$.age') AS age
+-- or
+properties -> '$.age' -- => "32"
+properties -> '$.name' -- => "john"
+properties ->> '$.age' -- => 32
+properties ->> '$.name' -- => john
+properties ->> '$.jobs' -- => ["translator", "teacher"]
+properties ->> '$.jobs[0]' -- => translator
+-- set and update a json
+UPDATE users
+SET properties = JSON_SET(properties, "$.name", "sarah", "$age", 20)
+WHERE user_id = 1
+-- remove a property of a json
+UPDATE users
+SET properties = JSON_REMOVE(properties, "$.name")
+WHERE user_id = 1
