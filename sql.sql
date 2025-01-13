@@ -443,3 +443,37 @@ ALTER TABLE table_name ADD PRIMARY KEY (column_name);
 -- 7. Drop a foreign key from a table
 ALTER TABLE table_name DROP FOREIGN KEY fk_name;
 -- This removes a foreign key constraint from the table.
+
+-- TRANSACTIONS
+-- Transactions in SQL allow you to execute multiple queries as a single unit of work.
+-- The primary purpose of transactions is to ensure data integrity and consistency.
+-- create
+START TRANSACTION;
+-- many queries 
+-- If any query inside the transaction fails, all previous changes made by the queries are undone when the transaction is rolled back.
+COMMIT;
+-----------------
+-- Concurrency Problems
+-- 1. Dirty Read:
+-- Occurs when a transaction reads data that has been modified by another transaction but not yet committed.
+-- The data being read may later be rolled back, leading to inconsistent or incorrect results.
+
+-- Solution: Read Committed isolation level ensures that transactions only read data that has been committed.
+
+-- 2. Non-repeatable Read:
+-- Happens when a transaction reads the same data multiple times, but the data is modified by another transaction between reads.
+-- The first read might give a different result from the second, causing inconsistency.
+
+-- Solution: Repeatable Read isolation level prevents other transactions from modifying data that has already been read until the transaction completes.
+
+-- 3. Phantom Read:
+-- Occurs when a transaction reads a set of rows, but another transaction inserts or deletes rows that match the same criteria between reads.
+-- This can result in different sets of data being returned in subsequent queries.
+
+-- Solution: Serializable isolation level ensures that no other transactions can insert, update, or delete rows that would affect the result set of the current transaction.
+
+-- 4. Lost Update:
+-- Happens when two or more transactions simultaneously update the same data, and one of the updates is lost.
+-- This can lead to inconsistent data because one transaction overwrites the other without any warning.
+
+-- Solution: Serializable isolation level helps avoid lost updates by ensuring that transactions are executed one at a time, preventing simultaneous updates to the same data.
