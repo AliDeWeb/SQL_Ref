@@ -255,3 +255,42 @@ DELIMITER ;
 -- READS SQL DATA: Can only read data (SELECT)
 -- MODIFIES SQL DATA: Can modify data (INSERT, UPDATE, DELETE)
 -- CONTAINS SQL: Can execute SQL commands without data access
+
+-- DATATYPEs
+-- strings
+CHAR(size)        -- Fixed-length string (0 to 255 characters); padded with spaces to reach the defined length.
+VARCHAR(size)     -- Variable-length string (0 to 65,535 characters, depending on settings); storage used matches the actual string length.
+TINYTEXT          -- Small text with a maximum length of 255 characters.
+TEXT              -- Standard text with a maximum length of 65,535 characters.
+MEDIUMTEXT        -- Medium text with a maximum length of 16,777,215 characters.
+LONGTEXT          -- Large text with a maximum length of 4,294,967,295 characters.
+-----------------
+-- integers
+TINYINT           -- Integer with a range of -128 to 127 (1 byte).
+UNSIGNED TINYINT  -- Non-negative integer with a range of 0 to 255 (1 byte).
+SMALLINT          -- Integer with a range of -32,768 to 32,767 (2 bytes).
+MEDIUMINT         -- Integer with a range of -8,388,608 to 8,388,607 (3 bytes).
+INT               -- Integer with a range of -2,147,483,648 to 2,147,483,647 (4 bytes).
+BIGINT            -- Integer with a range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (8 bytes).
+-----------------
+-- floats
+DECIMAL(p, s)     -- Fixed-point number with precision `p` (total digits) and scale `s` (digits after the decimal); exact values, typically for financial data.
+FLOAT             -- Single-precision floating-point number; approximate values with 4 bytes of storage.
+DOUBLE            -- Double-precision floating-point number; approximate values with 8 bytes of storage.
+-----------------
+-- boolean
+BOOL              -- Synonym for TINYINT(1); stores 0 (false) or 1 (true), but can technically hold any integer value.
+BOOLEAN           -- Alias for BOOL; behaves the same as TINYINT(1).
+-----------------
+-- enum
+ENUM('value1', 'value2')  -- A string object that can store one predefined value from a list of allowed options (up to 65,535 values); efficient for fixed choices.
+-----------------
+-- date & time
+DATE              -- Stores a date in the format 'YYYY-MM-DD'; range: '1000-01-01' to '9999-12-31'.
+TIME              -- Stores a time in the format 'HH:MM:SS'; range: '-838:59:59' to '838:59:59'.
+DATETIME          -- Stores both date and time in the format 'YYYY-MM-DD HH:MM:SS'; range: '1000-01-01 00:00:00' to '9999-12-31 23:59:59'.
+YEAR              -- Stores a year in 4-digit format (e.g., 2025); range: 1901 to 2155.
+TIMESTAMP         -- Stores both date and time in the format 'YYYY-MM-DD HH:MM:SS'; range: '1970-01-01 00:00:01 UTC' to '2038-01-19 03:14:07 UTC'. Automatically updates based on current time if not manually set.
+-----------------
+-- JSON
+JSON              -- Stores JSON-formatted data as a text-based object; allows structured data storage with nested arrays and objects, enabling easy querying and validation.
