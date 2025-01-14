@@ -477,3 +477,16 @@ COMMIT;
 -- This can lead to inconsistent data because one transaction overwrites the other without any warning.
 
 -- Solution: Serializable isolation level helps avoid lost updates by ensuring that transactions are executed one at a time, preventing simultaneous updates to the same data.
+
+-- CREATE FOREIGN KEYS
+CREATE TABLE IF NOT EXISTS orders
+(
+	order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    payment_id VARCHAR(50) NOT NULL,
+    price INT DEFAULT 'not assigned',
+    FOREIGN KEY fk_orders_users(user_id)
+		REFERENCES users(user_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+)
